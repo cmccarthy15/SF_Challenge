@@ -10,3 +10,5 @@
 2. The back end is inside of server and data folders. Data/functions is responsible for parsing the csv and getting the relevant user data. All code is commented!
 3. Reach out if you have any questions!
 
+# Author
+Caryn McCarthy

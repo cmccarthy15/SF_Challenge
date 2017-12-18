@@ -28361,11 +28361,13 @@ var Main = function (_Component) {
   _createClass(Main, [{
     key: 'handleSubmit',
     value: function handleSubmit(evt) {
+      var _this2 = this;
+
       evt.preventDefault();
       _axios2.default.get('/api/candidate/' + this.state.candidate_id).then(function (res) {
-        return console.log('after axios call', res);
+        console.log(res.data);
+        _this2.setState(res.data);
       });
-      console.log('got candidate id: ', this.state.candidate_id);
     }
   }, {
     key: 'handleChange',
@@ -28473,7 +28475,7 @@ var getScoreRecords = function getScoreRecords(candidate_id, res) {
   return d3.csv('https://s3.amazonaws.com/simple-fractal-recruiting/score-records.csv', function (error, data) {
     scoreRecords = data.slice(0, data.length);
 
-    var _getCandidatePercenti = getCandidatePercentiles(candidate_id, scoreRecords, companies),
+    var _getCandidatePercenti = getCandidatePercentiles(candidate_id, scoreRecords, companies, res),
         codingPercentile = _getCandidatePercenti.codingPercentile,
         communicationPercentile = _getCandidatePercenti.communicationPercentile;
 
@@ -28494,7 +28496,7 @@ function areSimilar(company_1, company_2) {
 }
 
 /* GET CANDIDATE PERCENTILES FUNCTION */
-function getCandidatePercentiles(candidate_id, scoreRecords, companies) {
+function getCandidatePercentiles(candidate_id, scoreRecords, companies, res) {
   /*      STEPS
       1. get the candidate info
       2. get their company info
@@ -28514,6 +28516,10 @@ function getCandidatePercentiles(candidate_id, scoreRecords, companies) {
   var candidateInfo = scoreRecords.find(function (elem) {
     return elem.candidate_id === candidate_id;
   });
+
+  if (!candidateInfo) {
+    return { codingPercentile: null, communicationPercentile: null };
+  }
 
   /*   STEP TWO   */
   var candidateCompany = companies.find(function (elem) {

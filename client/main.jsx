@@ -17,8 +17,10 @@ export default class Main extends Component {
   handleSubmit(evt){
     evt.preventDefault();
     axios.get(`/api/candidate/${this.state.candidate_id}`)
-      .then(res => console.log('after axios call', res))
-    console.log('got candidate id: ', this.state.candidate_id)
+      .then(res => {
+        console.log(res.data)
+        this.setState(res.data)
+      })
   }
 
   handleChange(evt){

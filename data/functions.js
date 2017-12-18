@@ -15,9 +15,9 @@ const getCompanies = (candidate_id, res) => d3.csv('https://s3.amazonaws.com/sim
 
 const getScoreRecords = (candidate_id, res) => d3.csv('https://s3.amazonaws.com/simple-fractal-recruiting/score-records.csv', function (error, data) {
   scoreRecords = data.slice(0, data.length);
-  const { codingPercentile, communicationPercentile } = getCandidatePercentiles(candidate_id, scoreRecords, companies)
+  const { codingPercentile, communicationPercentile } = getCandidatePercentiles(candidate_id, scoreRecords, companies, res)
   if(res) {
-    res.send({ coding_percentile: codingPercentile, communication_percentile: communicationPercentile})
+    res.send({ coding_percentile: codingPercentile , communication_percentile: communicationPercentile})
     // res.coding_percentile = codingPercentile
     // res.communication_percentile = communicationPercentile
   }
@@ -33,7 +33,7 @@ function areSimilar(company_1, company_2){
 
 
 /* GET CANDIDATE PERCENTILES FUNCTION */
-function getCandidatePercentiles(candidate_id, scoreRecords, companies){
+function getCandidatePercentiles(candidate_id, scoreRecords, companies, res){
   /*      STEPS
       1. get the candidate info
       2. get their company info
@@ -51,6 +51,10 @@ function getCandidatePercentiles(candidate_id, scoreRecords, companies){
   /*   STEP ONE   */
 
   const candidateInfo = scoreRecords.find(elem => elem.candidate_id === candidate_id)
+
+  if (!candidateInfo) {
+    return { codingPercentile: null , communicationPercentile: null }
+  }
 
   /*   STEP TWO   */
   const candidateCompany = companies.find(elem => elem.company_id === candidateInfo.company_id)
@@ -78,6 +82,7 @@ function getCandidatePercentiles(candidate_id, scoreRecords, companies){
   const codingPercentile = Math.round(codingScores.sort((a, b) => a - b).indexOf(candidateInfo.coding_score) / (codingScores.length - 1) * 100)
 
   return {codingPercentile, communicationPercentile}
+
 }
 
 // getInfo('889')

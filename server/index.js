@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 8080
 const app = express()
+const getInfo = require('../data/functions.js')
 
 module.exports = app
 
@@ -27,6 +28,10 @@ app.use(express.static(path.join(__dirname, '..', 'public')))
       next()
     }
   })
+
+app.get('/api/candidate/:id', async (req, res, next) => {
+  return getInfo(req.params.id, res);
+})
 
 // sends index.html
 app.use('*', (req, res) => {

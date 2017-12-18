@@ -3,23 +3,27 @@
 let d3 = require('d3');
 let companies, scoreRecords;
 
-const getInfo = (candidate_id) => {
-  getCompanies(candidate_id)
+const getInfo = (candidate_id, res) => {
+  console.log('inside of getInfo')
+  getCompanies(candidate_id, res)
 }
 
-const getCompanies = (candidate_id) => d3.csv('https://s3.amazonaws.com/simple-fractal-recruiting/companies.csv', function (error, data) {
+const getCompanies = (candidate_id, res) => d3.csv('https://s3.amazonaws.com/simple-fractal-recruiting/companies.csv', function (error, data) {
   companies = data.slice(0, data.length);
-  getScoreRecords(candidate_id)
+  getScoreRecords(candidate_id, res)
 })
 
-const getScoreRecords = (candidate_id) => d3.csv('https://s3.amazonaws.com/simple-fractal-recruiting/score-records.csv', function (error, data) {
+const getScoreRecords = (candidate_id, res) => d3.csv('https://s3.amazonaws.com/simple-fractal-recruiting/score-records.csv', function (error, data) {
   scoreRecords = data.slice(0, data.length);
   const { codingPercentile, communicationPercentile } = getCandidatePercentiles(candidate_id, scoreRecords, companies)
+  if(res) {
+    res.send({ coding_percentile: codingPercentile, communication_percentile: communicationPercentile})
+    // res.coding_percentile = codingPercentile
+    // res.communication_percentile = communicationPercentile
+  }
 
-  console.log('coding percentile: ', codingPercentile);
-  console.log('communication percentile: ', communicationPercentile)
-
-
+  console.log('codingPercentile', codingPercentile)
+  console.log('communicationPercentile', communicationPercentile)
 })
 
 /*  IS SIMILAR FUNCTION  */
@@ -45,6 +49,7 @@ function getCandidatePercentiles(candidate_id, scoreRecords, companies){
 
 
   /*   STEP ONE   */
+
   const candidateInfo = scoreRecords.find(elem => elem.candidate_id === candidate_id)
 
   /*   STEP TWO   */
@@ -75,5 +80,6 @@ function getCandidatePercentiles(candidate_id, scoreRecords, companies){
   return {codingPercentile, communicationPercentile}
 }
 
+// getInfo('889')
 
 module.exports = getInfo;

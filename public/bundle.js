@@ -18295,16 +18295,80 @@ var Main = function (_Component) {
   function Main() {
     _classCallCheck(this, Main);
 
-    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
+
+    _this.state = {
+      candidate_id: '',
+      communication_percentile: '',
+      coding_percentile: ''
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
   }
 
   _createClass(Main, [{
+    key: 'handleSubmit',
+    value: function handleSubmit(evt) {
+      evt.preventDefault();
+      this.setState({ candidate_id: evt.target.candidate_id });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'h1',
+        'div',
         null,
-        'Hello world!'
+        _react2.default.createElement(
+          'header',
+          null,
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Simple Fractal Take-Home'
+          ),
+          _react2.default.createElement('hr', null),
+          _react2.default.createElement(
+            'div',
+            { id: 'id_submission' },
+            _react2.default.createElement(
+              'form',
+              null,
+              _react2.default.createElement(
+                'label',
+                null,
+                'Candidate Id:',
+                _react2.default.createElement('input', { type: 'text', name: 'candidate_id' })
+              ),
+              _react2.default.createElement('input', { type: 'submit', value: 'Submit' })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { id: 'main' },
+          _react2.default.createElement(
+            'div',
+            { id: 'percentile_displays' },
+            _react2.default.createElement(
+              'div',
+              { id: 'communcation', className: 'percentile' },
+              _react2.default.createElement(
+                'h3',
+                null,
+                'Communication'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { id: 'coding', className: 'percentile' },
+              _react2.default.createElement(
+                'h3',
+                null,
+                'Coding'
+              )
+            )
+          )
+        )
       );
     }
   }]);

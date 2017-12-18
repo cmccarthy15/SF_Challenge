@@ -1,0 +1,57 @@
+#app {
+  font-family: "Ubuntu Regular",
+  "Verdana";
+}
+
+header {
+  background-color: #336699;
+  left: 0;
+  top: 0;
+  width: 100%;
+  position: fixed;
+  float: left;
+  color: white;
+  font-family: "Ubuntu Regular",
+  "Verdana";
+  border-bottom: 3px;
+  border-bottom-color: white;
+
+}
+
+header > h1 {
+  margin: 0;
+  padding: 10px;
+  font-family: "Ubuntu Regular",
+  "Verdana";
+  font-size: 1.0625rem;
+  line-height: 2.8125rem;
+  font-weight: lighter
+}
+
+header h2 {
+  margin: 0;
+  padding: 10px;
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+  font-weight: lighter
+}
+
+#main {
+  display: block;
+  top: 130px;
+  position: relative;
+}
+
+#percentile_displays {
+  display: flex;
+  justify-content: space-around
+}
+
+form {
+  margin: 5px;
+}
+
+input {
+  margin: 5px;
+}
+

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import getInfo from '../data/functions'
 import axios from 'axios';
+import CircularProgressbar from 'react-circular-progressbar';
 
 export default class Main extends Component {
   constructor(){
@@ -18,7 +19,6 @@ export default class Main extends Component {
     evt.preventDefault();
     axios.get(`/api/candidate/${this.state.candidate_id}`)
       .then(res => {
-        console.log(res.data)
         this.setState(res.data)
       })
   }
@@ -30,6 +30,9 @@ export default class Main extends Component {
 
   render(){
     console.log('this.state', this.state)
+    const coding = this.state.coding_percentile > 0 ? this.state.coding_percentile : 1 ;
+    const communication = this.state.coding_percentile > 0 ? this.state.communication_percentile : 1 ;
+    console.log('coding and communication scores: ', coding, communication)
     return (
       <div>
         <header>
@@ -55,9 +58,11 @@ export default class Main extends Component {
           <div id="percentile_displays">
             <div id="communcation" className="percentile">
               <h3>Communication</h3>
+              {this.state.communication_percentile && <CircularProgressbar percentage={communication} initialAnimation={true} />}
             </div>
             <div id="coding" className="percentile">
               <h3>Coding</h3>
+              {this.state.coding_percentile && <CircularProgressbar percentage={coding} initialAnimation={true} />}
             </div>
           </div>
         </div>

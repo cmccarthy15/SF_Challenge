@@ -1,8 +1,11 @@
+let path = require('path')
+
 module.exports = {
   entry: './client/index.jsx',
   output: {
-    filename: './public/bundle.js',
-    path: __dirname
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: "/SF_Challenge/",
   },
   devtool: 'source-map',
   module: {

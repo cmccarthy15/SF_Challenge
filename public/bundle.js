@@ -28378,6 +28378,7 @@ var Main = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log('this.state', this.state);
       return _react2.default.createElement(
         'div',
         null,
@@ -28414,6 +28415,11 @@ var Main = function (_Component) {
         _react2.default.createElement(
           'div',
           { id: 'main' },
+          this.state.coding_percentile === null && _react2.default.createElement(
+            'p',
+            null,
+            ' Input a valid candidate id to see their statistics'
+          ),
           _react2.default.createElement(
             'div',
             { id: 'percentile_displays' },

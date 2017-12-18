@@ -29,6 +29,7 @@ export default class Main extends Component {
   }
 
   render(){
+    console.log('this.state', this.state)
     return (
       <div>
         <header>
@@ -50,6 +51,7 @@ export default class Main extends Component {
           </div>
         </header>
         <div id="main">
+          {this.state.coding_percentile === null && <p> Input a valid candidate id to see their statistics</p>}
           <div id="percentile_displays">
             <div id="communcation" className="percentile">
               <h3>Communication</h3>

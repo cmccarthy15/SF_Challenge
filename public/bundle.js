@@ -28382,7 +28382,7 @@ var Main = function (_Component) {
     key: 'render',
     value: function render() {
       var coding = this.state.coding_percentile;
-      var communication = this.state.coding_percentile;
+      var communication = this.state.communication_percentile;
       return _react2.default.createElement(
         'div',
         null,

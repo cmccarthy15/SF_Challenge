@@ -30,7 +30,7 @@ export default class Main extends Component {
 
   render(){
     const coding = this.state.coding_percentile
-    const communication = this.state.coding_percentile
+    const communication = this.state.communication_percentile
     return (
       <div>
         <header>
